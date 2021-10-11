@@ -25,7 +25,7 @@
             android:layout_marginRight="10dp"
             android:paddingLeft="10dp"
             android:text="TextView"
-            android:textColor="#4C4C6D"
+            android:textColor="@color/primary_textColor"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:layout_marginRight="10dp"
             android:paddingLeft="10dp"
             android:text="TextView"
-            android:textColor="#4C4C6D"
+            android:textColor="@color/primary_textColor"
             android:textSize="16sp" />
 
     </LinearLayout>

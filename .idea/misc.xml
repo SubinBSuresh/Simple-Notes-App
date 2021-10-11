@@ -4,17 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/drawable/delete_background.xml" value="0.13018018018018018" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/drawable/gif_background.xml" value="0.20625" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12207207207207207" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.12207207207207207" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/drawable/listview_background.xml" value="0.2638888888888889" />
-        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_detailed.xml" value="0.2873873873873874" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_detailed.xml" value="0.22" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_edit_data.xml" value="0.2873873873873874" />
-        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_listview.xml" value="0.2873873873873874" />
-        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_show_data.xml" value="0.33" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_listview.xml" value="0.22" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_show_data.xml" value="0.22" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/activity_splash.xml" value="0.2368659420289855" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/custom_dialog.xml" value="0.2873873873873874" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/custom_listview.xml" value="0.33" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/detailed_page_activity.xml" value="0.25" />
+        <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/layout/layout_splash.xml" value="0.2368659420289855" />
         <entry key="..\:/QuEST/Android/Android Studio/CustomListView/app/src/main/res/menu/activity_options_menu.xml" value="0.2873873873873874" />
       </map>
     </option>

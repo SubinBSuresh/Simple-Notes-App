@@ -3,17 +3,18 @@ package com.example.customlistview;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseActivity {
+public class DatabaseActivity extends SQLiteOpenHelper {
 
-    public static final String TITLE = "title";
-    public static final String CONTENT = "content";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_CONTENT = "content";
 
     //TAG for LogCat
     private static final String TAG = "DatabaseActivity";
@@ -26,87 +27,60 @@ public class DatabaseActivity {
 
     //DROP
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS notes";
-    private final Context context;
-    private final DatabaseHelper dbHelper;
-    private SQLiteDatabase db;
 
 
-    public DatabaseActivity(Context context) {
-        this.context = context;
-        dbHelper = new DatabaseHelper(context);
+    //CONSTRUCTOR
+    public DatabaseActivity(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Database Helper
-    private class DatabaseHelper extends SQLiteOpenHelper {
-        public DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
 
-
-        @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            try {
-                sqLiteDatabase.execSQL(CREATE_TABLE);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //To open the Database in Writable mode so as to write/ insert data
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            sqLiteDatabase.execSQL(DROP_TABLE);
-            onCreate(sqLiteDatabase);
-        }
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(CREATE_TABLE);
 
     }
 
-    //To open the Database in Writable mode so as to write/ insert data
-    public DatabaseActivity open() throws SQLException {
-        db = dbHelper.getWritableDatabase();
-        return this;
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL(DROP_TABLE);
+        onCreate(sqLiteDatabase);
     }
 
-    //Close the database
-    public void close() {
-        dbHelper.close();
-    }
 
     // DATA INSERTION
     public void insertData(String title, String content) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(TITLE, title);
-        cv.put(CONTENT, content);
+        cv.put(KEY_TITLE, title);
+        cv.put(KEY_CONTENT, content);
 
         db.insert(TABLE_NAME, null, cv);
     }
 
 
     //Delete a note from a database
-    public boolean deleteOne(String title) {
-        db = dbHelper.getWritableDatabase();
-        db.delete(TABLE_NAME, TITLE + "=?", new String[]{String.valueOf(title)});
-        db.close();
-        return false;
+    public void delete(String data) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_TITLE + "=?", new String[]{String.valueOf(data)});
     }
 
 
     //Update a note
-    public void updateData(String title, String content) {
-        db = dbHelper.getWritableDatabase();
-
+    public void updateData(String name, String phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(TITLE, title);
-        cv.put(CONTENT, content);
-        db.update(TABLE_NAME, cv, TITLE + "=?", new String[]{String.valueOf(title)});
+        cv.put(KEY_TITLE, name);
+        cv.put(KEY_CONTENT, phone);
+        db.update(TABLE_NAME, cv, KEY_TITLE + "=?", new String[]{String.valueOf(name)});
     }
+
 
 
     //Get all the titles from database
     public List<String> getTitle() {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{TITLE}, null, null, null, null, null);
-
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_TITLE}, null, null, null, null, null);
         final List<String> titles = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -116,17 +90,16 @@ public class DatabaseActivity {
         return titles;
     }
 
-    //Get all the contents from database
-    public List<String> getContent() {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{CONTENT}, null, null, null, null, null);
-        final List<String> contents = new ArrayList<>();
+        //Get all the contents from database
+        public List<String> getContent () {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_CONTENT}, null, null, null, null, null);
+            final List<String> contents = new ArrayList<>();
 
-        while (cursor.moveToNext()) {
-            contents.add(cursor.getString(0));
+            while (cursor.moveToNext()) {
+                contents.add(cursor.getString(0));
+            }
+            cursor.close();
+            return contents;
         }
-        cursor.close();
-        return contents;
     }
-
-}

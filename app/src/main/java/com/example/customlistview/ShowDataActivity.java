@@ -2,14 +2,20 @@ package com.example.customlistview;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.bumptech.glide.Glide;
 
 public class ShowDataActivity extends AppCompatActivity {
 
@@ -60,12 +66,14 @@ public class ShowDataActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(ShowDataActivity.this);
                 dialog.setContentView(R.layout.custom_dialog);
                 dialog.setCancelable(true);
+                ImageView tvDialogImage = findViewById(R.id.iv_dialogImage);
 
 
                 Button btnConfirmDialog = dialog.findViewById(R.id.btn_confirmDialog);
                 Button btnCancelDialog = dialog.findViewById(R.id.btn_cancelDialog);
 
                 dialog.show();
+
                 btnCancelDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -79,17 +87,28 @@ public class ShowDataActivity extends AppCompatActivity {
 
                         String data = tvTitleDetailed.getText().toString();
 
-                        db.open();
-                        Boolean aBoolean = db.deleteOne(data);
-                        if (!aBoolean) {
-                            Toast.makeText(getApplicationContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Note could not be deleted", Toast.LENGTH_SHORT).show();
-                        }
+
+                        db.delete(data);
+                        Toast.makeText(getApplicationContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
+
                         db.close();
 
-                        Intent intent = new Intent(ShowDataActivity.this, com.example.customlistview.MainActivity.class);
-                        startActivity(intent);
+                        dialog.cancel();
+
+                        ImageView imageView = findViewById(R.id.iv_delete);
+                        ConstraintLayout constraintLayout = findViewById(R.id.delete_body);
+                        constraintLayout.setBackgroundColor(Color.WHITE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getApplicationContext())
+                                .load(R.drawable.delete)
+                                .into(imageView);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(ShowDataActivity.this, com.example.customlistview.MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }, 1200);
                     }
                 });
 

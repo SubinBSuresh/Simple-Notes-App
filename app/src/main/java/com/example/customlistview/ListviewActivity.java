@@ -30,8 +30,12 @@ public class ListviewActivity extends ArrayAdapter<String> {
         TextView tvTitle = row.findViewById(R.id.tv_title);
         TextView tvContents = row.findViewById(R.id.tv_contents);
 
+        String trimmedContent = content.get(position);
+        if(content.get(position).length()>40){
+         trimmedContent = trimmedContent.substring(0,30)+" .....";
+        }
         tvTitle.setText(title.get(position));
-        tvContents.setText(content.get(position));
+        tvContents.setText(trimmedContent);
 
         return row;
     }

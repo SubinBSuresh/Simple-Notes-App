@@ -1,14 +1,19 @@
 package com.example.customlistview;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.bumptech.glide.Glide;
 
 public class EditDataActivity extends AppCompatActivity {
 
@@ -49,12 +54,26 @@ public class EditDataActivity extends AppCompatActivity {
                 title = tvEditTitle.getText().toString();
                 contents = etEditContent.getText().toString();
 
-                db.open();
                 db.updateData(title, contents);
                 db.close();
-                Toast.makeText(EditDataActivity.this, "Changes Saved", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EditDataActivity.this, MainActivity.class);
-                startActivity(intent);
+
+
+                btnEdit.setVisibility(View.INVISIBLE);
+                ImageView imageView = findViewById(R.id.iv_edit);
+                ConstraintLayout constraintLayout = findViewById(R.id.edit_body);
+                constraintLayout.setBackgroundColor(Color.WHITE);
+                imageView.setVisibility(View.VISIBLE);
+                Glide.with(getApplicationContext())
+                        .load(R.drawable.save)
+                        .into(imageView);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(EditDataActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }, 1200);
+
             }
 
         });
