@@ -11,6 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomListView">
         <activity
+            android:name=".ShowDataActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ListviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DetailedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EditDataActivity"
+            android:exported="true" /> <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -19,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailedPage"/>
     </application>
 
 </manifest>

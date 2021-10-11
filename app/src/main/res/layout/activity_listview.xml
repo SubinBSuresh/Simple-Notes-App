@@ -30,7 +30,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_subtitle"
+            android:id="@+id/tv_contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -41,17 +41,6 @@
             android:textColor="#4C4C6D"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="TextView"
-            android:textColor="#AF4C4C6D"
-            android:textSize="14sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
