@@ -6,6 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,10 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
-    ListView listView;
+    GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +33,15 @@ public class MainActivity extends AppCompatActivity {
         List<String> title = db.getTitle();
         List<String> content = db.getContent();
 
-        com.example.customlistview.ListviewActivity adapter = new com.example.customlistview.ListviewActivity(this, title, content);
-        listView = findViewById(R.id.lv_listView);
-        listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        com.example.customlistview.ListviewActivity adapter = new com.example.customlistview.ListviewActivity(this, title, content);
+
+
+        gridView = findViewById(R.id.gv_gridView);
+        gridView.setAdapter(adapter);
+
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String[] details = {title.get(position), content.get(position)};
@@ -43,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab_add = findViewById(R.id.fab_add);
-        fab_add.setOnClickListener(new View.OnClickListener() {
+        Button btnNew = findViewById(R.id.btn_new);
+        btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DetailedActivity.class);

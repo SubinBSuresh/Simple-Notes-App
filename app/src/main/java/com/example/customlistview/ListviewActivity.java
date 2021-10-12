@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
+import androidx.cardview.widget.CardView;
 
+import java.util.List;
+import java.util.Random;
 public class ListviewActivity extends ArrayAdapter<String> {
     private final Activity context;
     private final List<String> title;
@@ -32,7 +35,7 @@ public class ListviewActivity extends ArrayAdapter<String> {
 
         String trimmedContent = content.get(position);
         if(content.get(position).length()>40){
-         trimmedContent = trimmedContent.substring(0,30)+" .....";
+         trimmedContent = trimmedContent.substring(0,30)+"  . . .";
         }
         tvTitle.setText(title.get(position));
         tvContents.setText(trimmedContent);

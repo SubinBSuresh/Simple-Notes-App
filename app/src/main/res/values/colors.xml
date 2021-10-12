@@ -14,4 +14,15 @@
     <color name="accent_shade">#A6B1E1</color>
     <color name="primary_textColor">@color/black</color>
     <color name="secondary_textColor">@color/white</color>
+
+    <color name="view_background_color">#263859</color>
+    <color name="view_accent_button">#FC5185</color>
+    <color name="card_color">#FFFFFF</color>
+
+    <color name="card_color1">#FFE194</color>
+    <color name="card_color2">#FFCEF3</color>
+    <color name="card_color3">#B5DEFF</color>
+    <color name="card_color4">#CAB8FF</color>
+    <color name="card_color5">#BCFFB9</color>
+    <color name="card_color6">#FFBCBC</color>
 </resources>
