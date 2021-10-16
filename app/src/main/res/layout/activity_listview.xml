@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:translationZ="2dp">
 
     <LinearLayout
         android:id="@+id/item_listView"
         android:layout_width="172dp"
         android:layout_height="156dp"
         android:background="@drawable/listview_background"
+        android:elevation="10dp"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -20,6 +22,7 @@
             android:layout_margin="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:fontFamily="@font/raleway_bold"
             android:paddingLeft="10dp"
             android:text="TextView"
             android:textColor="@color/primary_textColor"
@@ -33,6 +36,7 @@
             android:layout_margin="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:fontFamily="@font/raleway"
             android:paddingLeft="10dp"
             android:text="TextView"
             android:textColor="@color/primary_textColor"

@@ -3,6 +3,7 @@ package com.example.customlistview;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -26,8 +27,8 @@ public class ShowDataActivity extends AppCompatActivity {
 
         TextView tvTitleDetailed = findViewById(R.id.tv_edit_Title);
         TextView tvSubtitleDetailed = findViewById(R.id.et_updateContent);
-        ImageButton ibDelete = findViewById(R.id.ib_deleteData);
-        ImageButton ibEdit = findViewById(R.id.ib_editData);
+        Button ibDelete = findViewById(R.id.ib_deleteData);
+        Button ibEdit = findViewById(R.id.ib_editData);
 
         final DatabaseActivity db = new DatabaseActivity(this);
 
@@ -65,8 +66,10 @@ public class ShowDataActivity extends AppCompatActivity {
 
                 Dialog dialog = new Dialog(ShowDataActivity.this);
                 dialog.setContentView(R.layout.custom_dialog);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                 dialog.setCancelable(true);
-                ImageView tvDialogImage = findViewById(R.id.iv_dialogImage);
+//                ImageView tvDialogImage = findViewById(R.id.iv_dialogImage);
 
 
                 Button btnConfirmDialog = dialog.findViewById(R.id.btn_confirmDialog);

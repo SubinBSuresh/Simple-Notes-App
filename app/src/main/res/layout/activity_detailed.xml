@@ -5,7 +5,8 @@
     android:id="@+id/save_body"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_shade">
+    android:background="@color/light_shade"
+    android:translationZ="2dp">
 
     <EditText
         android:id="@+id/tv_edit_Title"
@@ -41,8 +42,10 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="47dp"
         android:backgroundTint="@color/view_accent_button"
+        android:elevation="10dp"
         android:text="Save"
         android:textColor="@color/secondary_textColor"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

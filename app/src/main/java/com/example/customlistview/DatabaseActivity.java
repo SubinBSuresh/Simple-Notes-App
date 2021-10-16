@@ -16,8 +16,8 @@ public class DatabaseActivity extends SQLiteOpenHelper {
     public static final String KEY_TITLE = "title";
     public static final String KEY_CONTENT = "content";
 
-    //TAG for LogCat
-    private static final String TAG = "DatabaseActivity";
+
+
     private static final String DATABASE_NAME = "NOTESDATABASE";
     private static final String TABLE_NAME = "notes";
     private static final int DATABASE_VERSION = 1;
