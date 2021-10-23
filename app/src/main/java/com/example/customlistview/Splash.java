@@ -22,7 +22,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_splash);
+        setContentView(R.layout.splash_activity);
 
         TextView tvSplash = findViewById(R.id.tv_splash);
         Animation splashAnimation = AnimationUtils.loadAnimation(this,R.anim.splash_bounce);
@@ -35,7 +35,7 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(Splash.this,MainActivity.class));
+                startActivity(new Intent(Splash.this, HomePageActivity.class));
 
                 finish();
             }
