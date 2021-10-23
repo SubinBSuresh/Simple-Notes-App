@@ -8,26 +8,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.List;
-import java.util.Random;
 
 
-public class MainActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity {
     GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.home_page_activity);
 
         final DatabaseActivity db = new DatabaseActivity(this);
         List<String> title = db.getTitle();
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String[] details = {title.get(position), content.get(position)};
-                Intent intent = new Intent(MainActivity.this, ShowDataActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, ViewNotesActivity.class);
                 intent.putExtra("Details", details);
                 startActivity(intent);
             }
@@ -55,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, AddNotesActivity.class);
                 startActivity(intent);
 
 
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_new) {
             Toast.makeText(getApplicationContext(), "Going to next activity", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, AddNotesActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +17,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 
-public class ShowDataActivity extends AppCompatActivity {
+public class ViewNotesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_data);
+        setContentView(R.layout.view_notes_activity);
 
         TextView tvTitleDetailed = findViewById(R.id.tv_edit_Title);
         TextView tvSubtitleDetailed = findViewById(R.id.et_updateContent);
@@ -52,7 +51,7 @@ public class ShowDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String[] editDetails = {tvTitleDetailed.getText().toString(), tvSubtitleDetailed.getText().toString()};
-                Intent editIntent = new Intent(ShowDataActivity.this, EditDataActivity.class);
+                Intent editIntent = new Intent(ViewNotesActivity.this, EditNotesActivity.class);
                 editIntent.putExtra("EditDetails", editDetails);
                 startActivity(editIntent);
 
@@ -64,7 +63,7 @@ public class ShowDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Dialog dialog = new Dialog(ShowDataActivity.this);
+                Dialog dialog = new Dialog(ViewNotesActivity.this);
                 dialog.setContentView(R.layout.custom_dialog);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -93,25 +92,10 @@ public class ShowDataActivity extends AppCompatActivity {
 
                         db.delete(data);
                         Toast.makeText(getApplicationContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
-
                         db.close();
-
-                        dialog.cancel();
-
-                        ImageView imageView = findViewById(R.id.iv_delete);
-                        ConstraintLayout constraintLayout = findViewById(R.id.delete_body);
-                        constraintLayout.setBackgroundColor(Color.WHITE);
-                        imageView.setVisibility(View.VISIBLE);
-                        Glide.with(getApplicationContext())
-                                .load(R.drawable.delete)
-                                .into(imageView);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(ShowDataActivity.this, com.example.customlistview.MainActivity.class);
-                                startActivity(intent);
-                            }
-                        }, 1200);
+                        Intent intent = new Intent(getApplicationContext(),AnimationPage.class);
+                        intent.putExtra("ActionPerformed","DeleteNote");
+                        startActivity(intent);
                     }
                 });
 

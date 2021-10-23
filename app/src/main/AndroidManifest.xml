@@ -9,21 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomListView">
-
         <activity
-            android:name=".ShowDataActivity"
+            android:name=".AnimationPage"
             android:exported="true" />
         <activity
-            android:name=".ListviewActivity"
+            android:name=".ViewNotesActivity"
             android:exported="true" />
         <activity
-            android:name=".DetailedActivity"
+            android:name=".AddNotesActivity"
             android:exported="true" />
         <activity
-            android:name=".EditDataActivity"
+            android:name=".EditNotesActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".HomePageActivity"
             android:exported="true" />
         <activity
             android:name=".Splash"
