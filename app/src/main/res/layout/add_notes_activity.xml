@@ -8,45 +8,54 @@
     android:background="@color/light_shade"
     android:translationZ="2dp">
 
-    <EditText
-        android:id="@+id/tv_edit_Title"
-        android:layout_width="288dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="72dp"
-        android:hint="Title here"
-        android:textColor="@color/primary_textColor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_updateContent"
-        android:layout_width="320dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="40dp"
-        android:hint="Content here"
-        android:padding="10dp"
-        android:textColor="@color/primary_textColor"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_edit_Title" />
-
     <Button
         android:id="@+id/btn_dataUpdate"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="47dp"
         android:backgroundTint="@color/view_accent_button"
         android:elevation="10dp"
+        android:fontFamily="@font/raleway_bold"
         android:text="Save"
         android:textColor="@color/secondary_textColor"
-        app:cornerRadius="10dp"
+        app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="75dp"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dataUpdate">
+
+        <EditText
+            android:id="@+id/tv_edit_Title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="200dp"
+            android:fontFamily="@font/raleway_bold"
+            android:hint="Title"
+            android:textColor="@color/primary_textColor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_updateContent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway"
+            android:hint="Content"
+            android:padding="10dp"
+            android:textColor="@color/primary_textColor"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

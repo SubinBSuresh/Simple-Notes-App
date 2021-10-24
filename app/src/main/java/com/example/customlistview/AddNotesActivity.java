@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +13,6 @@ public class AddNotesActivity extends AppCompatActivity {
 
     String title;
     String contents;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +40,11 @@ public class AddNotesActivity extends AppCompatActivity {
                 } else {
                     db.insertData(title, contents);
                     db.close();
-                    Intent intent = new Intent(getApplicationContext(),AnimationPage.class);
-                    intent.putExtra("ActionPerformed","NewNote");
+                    Intent intent = new Intent(getApplicationContext(), AnimationPage.class);
+                    intent.putExtra("ActionPerformed", "NewNote");
                     startActivity(intent);
                 }
             }
         });
-
     }
 }

@@ -49,7 +49,7 @@
         android:fontFamily="@font/raleway_bold"
         android:text="Save Changes"
         android:textColor="@color/secondary_textColor"
-        app:cornerRadius="10dp"
+        app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

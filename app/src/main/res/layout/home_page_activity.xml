@@ -10,7 +10,7 @@
         android:id="@+id/gv_gridView"
         android:layout_width="fill_parent"
         android:layout_height="643dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="1dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
@@ -24,7 +24,6 @@
         android:id="@+id/btn_new"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
-        android:layout_marginStart="295dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
         android:backgroundTint="@color/view_accent_button"
@@ -32,9 +31,8 @@
         android:fontFamily="@font/raleway_bold"
         android:text="New"
         android:translationZ="2dp"
+        app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,6 @@ public class EditNotesActivity extends AppCompatActivity {
     String title;
     String contents;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +31,9 @@ public class EditNotesActivity extends AppCompatActivity {
             } else {
                 editDetails = extras.getStringArray("EditDetails");
             }
-
             assert editDetails != null;
             tvEditTitle.setText(editDetails[0]);
             etEditContent.setText(editDetails[1]);
-
         }
 
         final DatabaseActivity db = new DatabaseActivity(this);
@@ -53,6 +50,5 @@ public class EditNotesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
