@@ -1,42 +1,74 @@
 package com.example.customlistview;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class HomePageActivity extends AppCompatActivity {
-    GridView gridView;
+
+    RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    NotesAdapter notesAdapter;
+    ArrayList<NotesHelper> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
 
-        final DatabaseActivity db = new DatabaseActivity(this);
-        List<String> title = db.getTitle();
-        List<String> content = db.getContent();
+        recyclerView = findViewById(R.id.rv_recyclerView);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        list = new ArrayList<>();
+        notesAdapter = new NotesAdapter(this, list);
+        recyclerView.setAdapter(notesAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ListviewActivity adapter = new ListviewActivity(this, title, content);
-
-        gridView = findViewById(R.id.gv_gridView);
-        gridView.setAdapter(adapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String[] details = {title.get(position), content.get(position)};
-                Intent intent = new Intent(HomePageActivity.this, ViewNotesActivity.class);
-                intent.putExtra("Details", details);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                    //Sort data
+                    Collections.sort(list, new Comparator<NotesHelper>() {
+                        @Override
+                        public int compare(NotesHelper o1, NotesHelper o2) {
+                            return o1.title.compareToIgnoreCase(o2.title);
+                        }
+                    });
+                    //Reverse the list
+//                    Collections.reverse(list);
+                    NotesHelper notesHelper = dataSnapshot.getValue(NotesHelper.class);
+                    list.add(notesHelper);
+                }
+                notesAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
