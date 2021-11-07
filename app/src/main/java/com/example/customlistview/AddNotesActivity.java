@@ -7,10 +7,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddNotesActivity extends AppCompatActivity {
 
@@ -18,8 +24,8 @@ public class AddNotesActivity extends AppCompatActivity {
     String contents;
     String date;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    FirebaseFirestore firebaseFirestore;
+    CollectionReference collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +36,9 @@ public class AddNotesActivity extends AppCompatActivity {
         EditText etContent = findViewById(R.id.et_updateContent);
         Button btnSave = findViewById(R.id.btn_dataUpdate);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Notes");
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        collectionReference = firebaseFirestore.collection("Notes");
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +55,17 @@ public class AddNotesActivity extends AppCompatActivity {
                 } else {
 
                     NotesHelper notesHelper = new NotesHelper(title, contents, date);
-                    databaseReference.child(title).setValue(notesHelper);
-
+                    collectionReference.add(notesHelper).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(getApplicationContext(), "Note Created", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Task Failed",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     Intent intent = new Intent(getApplicationContext(), AnimationPage.class);
                     intent.putExtra("ActionPerformed", "NewNote");
                     startActivity(intent);

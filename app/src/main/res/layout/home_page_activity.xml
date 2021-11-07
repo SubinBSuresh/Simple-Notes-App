@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/view_background_color">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <GridView
         android:id="@+id/rv_recyclerView"
         android:layout_width="fill_parent"
         android:layout_height="643dp"

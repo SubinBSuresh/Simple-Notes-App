@@ -1,84 +1,122 @@
 package com.example.customlistview;
 
-import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
 public class HomePageActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    DatabaseReference databaseReference;
-    NotesAdapter notesAdapter;
-    ArrayList<NotesHelper> list;
+    GridView listView;
+    Button btnNew;
+
+    ArrayList<NotesHelper> notesHelperArrayList;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
 
-        recyclerView = findViewById(R.id.rv_recyclerView);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        btnNew = findViewById(R.id.btn_new);
 
-        list = new ArrayList<>();
-        notesAdapter = new NotesAdapter(this, list);
-        recyclerView.setAdapter(notesAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        listView = findViewById(R.id.rv_recyclerView);
+        notesHelperArrayList = new ArrayList<>();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
+        firebaseFirestore.collection("Notes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
 
-                    //Sort data
-                    Collections.sort(list, new Comparator<NotesHelper>() {
-                        @Override
-                        public int compare(NotesHelper o1, NotesHelper o2) {
-                            return o1.title.compareToIgnoreCase(o2.title);
-                        }
-                    });
-                    //Reverse the list
-//                    Collections.reverse(list);
-                    NotesHelper notesHelper = dataSnapshot.getValue(NotesHelper.class);
-                    list.add(notesHelper);
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot d : list) {
+                        NotesHelper notesHelper = d.toObject(NotesHelper.class);
+                        notesHelperArrayList.add(notesHelper);
+                    }
+                    NotesAdapter adapter = new NotesAdapter(getApplicationContext(), notesHelperArrayList);
+
+                    listView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No data found in database", Toast.LENGTH_SHORT).show();
                 }
-                notesAdapter.notifyDataSetChanged();
             }
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
 
-        Button btnNew = findViewById(R.id.btn_new);
+
+        //New Button
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, AddNotesActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(),AddNotesActivity.class));
             }
         });
+
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getApplicationContext(),"This item is clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Longclick listener
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Dialog deleteDialog = new Dialog(getApplicationContext());
+                deleteDialog.setContentView(R.layout.delete_dialog);
+                deleteDialog.setCancelable(false);
+                Button btnDeleteConfirm = deleteDialog.findViewById(R.id.btn_confirmDialog);
+                Button btnDeleteCancel = deleteDialog.findViewById(R.id.btn_deleteCancel);
+                deleteDialog.show();
+                //Confirm delete
+                btnDeleteConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+                //Cancel delete
+                btnDeleteCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteDialog.cancel();
+                    }
+                });
+
+                return false;
+            }
+        });
+
+
     }
 }
